@@ -15,6 +15,7 @@
     <modules>
         <module>rocketmq-spring-boot-starter</module>
         <module>mq-activemq</module>
+        <module>mq-rabbitmq</module>
     </modules>
 
     <dependencyManagement>
