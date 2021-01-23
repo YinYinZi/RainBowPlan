@@ -18,6 +18,9 @@
     <url>https://github.com/qq1132434165/RainBowPlan</url>
     <modules>
         <module>rainbow-mq</module>
+        <module>rainbow-starters</module>
+        <module>rainbow-dependencies</module>
+        <module>rainbow-common</module>
     </modules>
 
     <properties>
