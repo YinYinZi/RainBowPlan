@@ -1,0 +1,19 @@
+spring:
+  rabbitmq:
+    addresses: 47.111.248.7:5672
+    username: rabbit
+    password: rabbit
+    virtual-host: /
+    template:
+      mandatory: true
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/rabbitmq?serverTimezone=GMT%2B8&useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+server:
+  port: 9001
+  servlet:
+    context-path: /

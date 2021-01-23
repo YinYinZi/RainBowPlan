@@ -10,14 +10,31 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mq-rabbitmq</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <description>RabbitMQ示例demo</description>
+    <modules>
+        <module>mq-rabbitmq-model</module>
+        <module>mq-rabbitmq-producer</module>
+        <module>mq-rabbitmq-consumer</module>
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <!-- 去掉logback配置 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
     </dependencies>
 
 

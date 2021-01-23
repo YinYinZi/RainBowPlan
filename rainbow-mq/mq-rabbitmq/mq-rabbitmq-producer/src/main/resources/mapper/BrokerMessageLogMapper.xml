@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.rainbow.rabbitmq.producer.mapper.BrokerMessageLogMapper">
+
+    <resultMap id="BaseResultMap" type="org.rainbow.rabbitmq.entity.BrokerMessageLog" >
+        <id column="message_id" property="messageId" jdbcType="VARCHAR" />
+        <result column="message" property="message" jdbcType="VARCHAR" />
+        <result column="try_count" property="tryCount" jdbcType="INTEGER" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="next_retry" property="nextRetry" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="query4StatusAndTimeoutMessage" resultMap="BaseResultMap">
+          <![CDATA[
+          select message_id, message, try_count, status, next_retry, create_time, update_time
+              from broker_message_log bml
+              where status = '0'
+              and next_retry <= sysdate()
+          ]]>
+    </select>
+
+    <update id="update4ReSend" >
+    update broker_message_log bml
+    set bml.try_count = bml.try_count + 1,
+      bml.update_time = #{updateTime, jdbcType=TIMESTAMP}
+    where bml.message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+    <update id="changeBrokerMessageLogStatus" >
+    update broker_message_log bml
+    set bml.status = #{status,jdbcType=VARCHAR},
+          bml.update_time = #{updateTime, jdbcType=TIMESTAMP}
+    where bml.message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

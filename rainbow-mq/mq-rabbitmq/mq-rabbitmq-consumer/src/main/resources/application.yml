@@ -1,0 +1,23 @@
+spring:
+  rabbitmq:
+    addresses: 47.111.248.7:5672
+    username: rabbit
+    password: rabbit
+    virtual-host: /
+    ## 消费端配置
+    listener:
+      simple:
+        concurrency: 5
+        ## manual:手动 ack（确认）
+        acknowledge-mode: manual
+        max-concurrency: 10
+        prefetch: 1
+  datasource:
+    url: jdbc:mysql://47.111.248.7:3306/rabbitmq?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: qwopalsk123
+    driverClassName: com.mysql.cj.jdbc.Driver
+server:
+  port: 9002
+  servlet:
+    context-path: /
