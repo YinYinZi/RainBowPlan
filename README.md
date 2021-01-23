@@ -12,8 +12,11 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    │ ├─rainbow-database 数据源模块  (启动中)  
    │ ├─rainbow-log-starter 日志启动器  (启动中)  
    │ └─rainbow-swagger2-starter swagger2启动器  (启动中)  
-   │─    
+   │      
+   │─rainbow-common 通用模块  
+   │─rainbow-dependencies 通用依赖模块  
    
 ### 🎯 近期计划
 
+通用依赖、通用模块  
 rainbow-database模块、rainbow-log-starter日志启动器 
