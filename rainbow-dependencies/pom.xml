@@ -2,19 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>rainbow-parent</artifactId>
-        <groupId>org.rainbow</groupId>
-        <version>1.0.0</version>
-    </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.rainbow</groupId>
     <artifactId>rainbow-dependencies</artifactId>
+    <version>${reversion}</version>
     <packaging>pom</packaging>
     <description>通用依赖模块</description>
 
     <properties>
-
+        <reversion>1.0.0</reversion>
         <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
         <spring.cloud.version>Hoxton.SR9</spring.cloud.version>
         <spring-cloud-alibaba-dependencies.version>2.2.1.RELEASE</spring-cloud-alibaba-dependencies.version>
@@ -28,7 +25,7 @@
         <p6spy.version>3.8.7</p6spy.version>
         <fastjson.version>1.2.68</fastjson.version>
         <transmittable-thread-local.version>2.11.4</transmittable-thread-local.version>
-        <druid.version>1.1.21</druid.version>
+        <druid.version>1.2.4</druid.version>
         <mysql.version>8.0.19</mysql.version>
         <knife4j.version>2.0.2</knife4j.version>
         <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
@@ -67,12 +64,11 @@
         <jgroups.version>3.6.15.Final</jgroups.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+        <rocketmq.version>4.7.0</rocketmq.version>
     </properties>
-
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>

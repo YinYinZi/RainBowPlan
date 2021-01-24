@@ -12,6 +12,9 @@
     <artifactId>rainbow-starters</artifactId>
     <packaging>pom</packaging>
     <description>启动器模块</description>
+    <modules>
+        <module>rainbow-database</module>
+    </modules>
 
 
 </project>
