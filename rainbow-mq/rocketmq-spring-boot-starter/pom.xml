@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>org.rainbow</groupId>
-            <artifactId>rainbow-common</artifactId>
+            <artifactId>rainbow-core</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
