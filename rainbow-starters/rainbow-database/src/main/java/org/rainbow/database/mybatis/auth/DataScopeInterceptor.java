@@ -1,0 +1,141 @@
+package org.rainbow.database.mybatis.auth;
+
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
+import com.baomidou.mybatisplus.extension.handlers.AbstractSqlParserHandler;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.SqlCommandType;
+import org.apache.ibatis.plugin.*;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
+import org.rainbow.core.context.BaseContextHandler;
+
+import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.function.Function;
+
+/**
+ * mybatis 数据权限拦截器
+ * <p>
+ * 1，全部：没有createUser权限
+ * 2，本级：当前用户的orgId
+ * 3，本级以及子级
+ * 4，自定义：
+ * 5，个人：createUser = 1
+ *
+ * @author K
+ * @date 2021/1/25  19:08
+ */
+@Slf4j
+@AllArgsConstructor
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
+public class DataScopeInterceptor extends AbstractSqlParserHandler implements Interceptor {
+    private final Function<Long, Map<String, Object>> function;
+
+    @Override
+    public Object intercept(Invocation invocation) throws Throwable {
+        StatementHandler statementHandler = (StatementHandler) PluginUtils.realTarget(invocation.getTarget());
+        MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
+        this.sqlParser(metaObject);
+
+        // 非读操作直接放行
+        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+        if (!SqlCommandType.SELECT.equals(mappedStatement.getSqlCommandType())) {
+            return invocation.proceed();
+        }
+
+        // 获取原SQL语句
+        BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
+        String originalSql = boundSql.getSql();
+        Object parameterObject = boundSql.getParameterObject();
+
+        // 查找参数中包含DataScope类型的参数
+        DataScope dataScope = findDataScopeObject(parameterObject);
+        if (null == dataScope) {
+            return invocation.proceed();
+        }
+        String scopeName = dataScope.getScopeName();
+        String selfScopeName = dataScope.getSelfScopeName();
+        Long userId = dataScope.getUserId() == null ? BaseContextHandler.getUserId() : dataScope.getUserId();
+        List<Long> orgIds = dataScope.getOrgIds();
+        DataScopeType dsType = DataScopeType.SELF;
+        if (CollectionUtil.isNotEmpty(orgIds)) {
+            Map<String, Object> result = function.apply(userId);
+            if (result == null) {
+                return invocation.proceed();
+            }
+
+            Integer type = (Integer) result.get("dsType");
+            dsType = DataScopeType.get(type);
+            orgIds = (List<Long>) result.get("orgIds");
+        }
+
+        // 查询全部
+        if (DataScopeType.ALL.eq(dsType)) {
+            return invocation.proceed();
+        }
+        //查个人
+        if (DataScopeType.SELF.eq(dsType)) {
+            originalSql = "select * from (" + originalSql + ") temp_data_scope where temp_data_scope." + selfScopeName + " = " + userId;
+        }
+        //查其他
+        else if (StrUtil.isNotBlank(scopeName) && CollUtil.isNotEmpty(orgIds)) {
+            String join = CollectionUtil.join(orgIds, ",");
+            originalSql = "select * from (" + originalSql + ") temp_data_scope where temp_data_scope." + scopeName + " in (" + join + ")";
+        }
+
+        metaObject.setValue("delegate.boundSql.sql", originalSql);
+        return invocation.proceed();
+    }
+
+    /**
+     * 生成拦截对象的代理
+     *
+     * @param target 目标对象
+     * @return 代理对象
+     */
+    @Override
+    public Object plugin(Object target) {
+        if (target instanceof StatementHandler) {
+            return Plugin.wrap(target, this);
+        }
+        return target;
+    }
+
+    /**
+     * mybatis配置的属性
+     *
+     * @param properties mybatis配置的属性
+     */
+    @Override
+    public void setProperties(Properties properties) {
+
+    }
+
+    /**
+     * 查找参数是否包含DataScope对象
+     *
+     * @param parameterObj 参数列表
+     * @return DataScope
+     */
+    private DataScope findDataScopeObject(Object parameterObj) {
+        if (parameterObj instanceof DataScope) {
+            return (DataScope) parameterObj;
+        } else {
+            for (Object val : ((Map<?, ?>) parameterObj).values()) {
+                if (val instanceof DataScope) {
+                    return (DataScope) val;
+                }
+            }
+        }
+        return null;
+    }
+}

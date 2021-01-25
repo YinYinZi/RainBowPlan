@@ -16,6 +16,32 @@ import java.util.Objects;
 public class BaseContextHandler {
     private static final ThreadLocal<Map<String, String>> THREAD_LOCAL = new ThreadLocal<>();
 
+    /**
+     * 账号id
+     *
+     * @return
+     */
+    public static Long getUserId() {
+        return get(BaseContextConstants.JWT_KEY_USER_ID, Long.class, 0L);
+    }
+
+    public static String getUserIdStr() {
+        return String.valueOf(getUserId());
+    }
+
+    /**
+     * 账号id
+     *
+     * @param userId
+     */
+    public static void setUserId(Long userId) {
+        set(BaseContextConstants.JWT_KEY_USER_ID, userId);
+    }
+
+    public static void setUserId(String userId) {
+        set(BaseContextConstants.JWT_KEY_USER_ID, userId);
+    }
+
     public static void set(String key, Object value) {
         Map<String, String> map = getLocalMap();
         map.put(key, Objects.isNull(value) ? StrPool.EMPTY : value.toString());
