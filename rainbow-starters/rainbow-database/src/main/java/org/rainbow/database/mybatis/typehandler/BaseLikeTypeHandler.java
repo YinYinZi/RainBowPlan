@@ -38,6 +38,13 @@ public class BaseLikeTypeHandler extends BaseTypeHandler<CharSequence> {
         }
     }
 
+    public static Object likeConvert(Object value) {
+        if (value instanceof String) {
+            return likeConvert(String.valueOf(value));
+        }
+        return value;
+    }
+
     public static String likeConvertProcess(String value) {
         if (StrUtil.isNotBlank(value)) {
             value = value.replaceAll("%", "\\\\%");
