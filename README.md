@@ -17,6 +17,5 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    │─rainbow-dependencies 通用依赖模块  
    
 ### 🎯 近期计划
-
-主模块  
-rainbow-database模块、rainbow-log-starter日志启动器 
+ 
+rainbow-database模块 mybatis、mybatis-plus拦截器执行流程图
