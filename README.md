@@ -15,7 +15,7 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    │      
    │─rainbow-core 主模块  
    │─rainbow-dependencies 通用依赖模块  
-   │─rainbow-java java技巧和其他学习demo 
+   │─rainbow-java java技巧和其他学习demo   
    │ ├─rainbow-java-docker  IDEA + Docker完成服务快速部署
    
 ### 🎯 近期计划
