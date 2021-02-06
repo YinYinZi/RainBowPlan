@@ -6,9 +6,9 @@ package org.rainbow.core.exception.code;
  * @author K
  * @date 2021/1/24  13:39
  */
-public class ExceptionCode implements BaseExceptionCode {
+public enum  ExceptionCode implements BaseExceptionCode {
 
-    ;
+    JSON_PARSE_ERROR(-13, "JSON解析异常"),;
 
     private int code;
     private String msg;

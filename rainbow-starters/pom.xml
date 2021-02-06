@@ -14,6 +14,7 @@
     <description>启动器模块</description>
     <modules>
         <module>rainbow-database</module>
+        <module>rainbow-cache-starter</module>
     </modules>
 
 

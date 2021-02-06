@@ -20,7 +20,7 @@ public interface DistributedLock {
     /**
      * 重试次数
      */
-    int RETRY_TIMES = 100;
+    int RETRY_TIMES = 10;
 
     /**
      * 每次重试后的等待时间

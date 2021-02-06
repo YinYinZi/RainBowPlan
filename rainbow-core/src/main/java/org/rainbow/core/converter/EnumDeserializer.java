@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 public class EnumDeserializer extends StdDeserializer<Enum<?>> {
-    private static final EnumDeserializer INSTANCE = new EnumDeserializer();
+    public static final EnumDeserializer INSTANCE = new EnumDeserializer();
     private static final String ALL_ENUM_STRING_CONVERT_METHOD = "get";
     private static final String ALL_ENUM_KEY_FIELD = "code";
 
