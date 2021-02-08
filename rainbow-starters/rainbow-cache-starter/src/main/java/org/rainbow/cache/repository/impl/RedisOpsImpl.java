@@ -26,7 +26,6 @@ public class RedisOpsImpl implements CacheOps {
     private final RedisOps redisOps;
 
     public RedisOpsImpl(RedisOps redisOps) {
-        System.out.println("RedisOps创建中。。。");
         this.redisOps = redisOps;
     }
 

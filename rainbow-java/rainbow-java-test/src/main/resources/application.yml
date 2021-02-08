@@ -1,10 +1,87 @@
 rainbow:
+  # 缓存类型
   cache:
     type: redis
+  # 数据库组件配置
+  database:
+    is-not-write: false
+    is-block-attack: true
+    id:
+      worker-id: 0
+      data-center-id: 0
+    is-seata: false
+
 
 spring:
+  # Redis配置
   redis:
     host: 47.111.248.7
     password: redis
     port: 6379
+  # Mysql配置
+  datasource:
+    druid:
+      enable: true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=CTT&charseterEncoding=utf8&useUnicode=true&useSSL=false&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&nullCatalogMeansCurrent=true
+      db-type: mysql
+      username: root
+      password: 123456
+      initial-size: 10
+      min-idle: 10
+      max-active: 200
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      validation-query: SELECT 'x'
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      # 间隔多久进行一次检测 检测需要关闭的空闲连接 单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存时间 单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      filter:
+        wall:
+          enabled: true
+          config:
+            comment-allow: true
+            multi-statement-allow: true
+            none-base-statement-allow: true
+
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js, *.gif, *.jpg, *.png, *.css, *.ico, /druid/*"
+        session-stat-max-count: 1000
+        profile-enable: true
+        session-stat-enable: false
+      # 展示Druid的统计信息,StatViewServlet的用途包括：1.提供监控信息展示的html页面2.提供监控信息的JSON API
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: rainbow
+        login-password: rainbow
+
+
+
+
+
+
+# Redis客户端Lettuce配置
+lettuce:
+  mode: single
+  namespace: ''
+  storage: generic
+  channel: j2cache
+  scheme: redis
+  hosts: 47.111.248.7:6379
+  password: redis
+  database: 0
+  sentinelMasterId: ''
+  maxTotal: 100
+  maxIdle: 10
+  minIdle: 10
+  timeout: 10000
 

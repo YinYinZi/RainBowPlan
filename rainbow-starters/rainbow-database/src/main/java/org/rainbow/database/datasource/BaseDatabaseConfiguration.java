@@ -51,7 +51,8 @@ import java.util.*;
  * @date 2021/1/26  15:35
  */
 @Slf4j
-public abstract class BaseDatabaseConfiguration implements InitializingBean {
+public abstract class
+BaseDatabaseConfiguration implements InitializingBean {
 
     protected static final String[] DEV_PROFILES = new String[]{"dev"};
 
