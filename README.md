@@ -21,4 +21,4 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    
 ### 🎯 近期计划
  
-rainbow-database模块 mybatis、mybatis-plus拦截器执行流程图
+rainbow-log-starter、rainbow-mq-starter模块
