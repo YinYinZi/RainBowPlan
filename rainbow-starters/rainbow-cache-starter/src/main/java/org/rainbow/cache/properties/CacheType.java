@@ -11,7 +11,7 @@ public enum CacheType {
     /**
      * 本地缓存
      */
-    CAFFINE,
+    CAFFEINE,
     /**
      * Redis缓存
      */

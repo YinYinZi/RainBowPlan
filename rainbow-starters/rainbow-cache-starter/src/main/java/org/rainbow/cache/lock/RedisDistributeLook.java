@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/2/4  11:09
  */
 public class RedisDistributeLook implements DistributedLock {
-    private static final Logger LOG = LoggerFactory.getLogger(RedisDistributeLook.class);
+    private static final Logger log = LoggerFactory.getLogger(RedisDistributeLook.class);
     private static final String UNLOCK_LUA = "if redis.call(\"get\", KEY[1]) == ARGV[1] then    return redis.call(\"del\", KEYS[1]) else    RETURN 0 end ";
     private final RedisTemplate<String, Object> redisTemplate;
     private final ThreadLocal<String> lockFlag = new ThreadLocal<>();
@@ -63,10 +63,10 @@ public class RedisDistributeLook implements DistributedLock {
         boolean result = false;
         for (result = this.setRedis(key, expire); !result && retryTimes-- > 0; result = this.setRedis(key, expire)) {
             try {
-                LOG.debug("get redisDistributeLock failed, retrying..." + retryTimes);
+                log.debug("get redisDistributeLock failed, retrying..." + retryTimes);
                 Thread.sleep(sleepMillis);
             } catch (InterruptedException e) {
-                LOG.warn("Interrupted!", e);
+                log.warn("Interrupted!", e);
                 Thread.currentThread().interrupt();
             }
         }
@@ -86,7 +86,7 @@ public class RedisDistributeLook implements DistributedLock {
                 }
             })).orElse(Boolean.FALSE);
         } catch (Exception var5) {
-            LOG.error("设置redis锁发生异常", var5);
+            log.error("设置redis锁发生异常", var5);
             return false;
         }
     }
@@ -102,7 +102,7 @@ public class RedisDistributeLook implements DistributedLock {
                 }
             })).orElse(Boolean.FALSE);
         } catch (Exception var6) {
-            LOG.error("释放redis锁发生异常", var6);
+            log.error("释放redis锁发生异常", var6);
         } finally {
             lockFlag.remove();
         }

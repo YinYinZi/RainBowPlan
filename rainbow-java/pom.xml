@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>rainbow-java-docker</module>
-        <module>rainbow-proxy-invocationHandler</module>
+        <module>rainbow-java-test</module>
     </modules>
 
 

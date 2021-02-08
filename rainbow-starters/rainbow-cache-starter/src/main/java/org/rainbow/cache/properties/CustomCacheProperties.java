@@ -15,7 +15,7 @@ import java.util.Map;
         prefix = "rainbow.cache"
 )
 public class CustomCacheProperties {
-    private static final String PREFIX = "rainbow.cache";
+    public static final String PREFIX = "rainbow.cache";
     private CacheType type;
     private Boolean cacheNullVal;
     private CustomCacheProperties.Cache def;

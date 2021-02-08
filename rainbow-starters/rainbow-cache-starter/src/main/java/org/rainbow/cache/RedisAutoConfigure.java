@@ -2,6 +2,7 @@ package org.rainbow.cache;
 
 import com.google.common.collect.Maps;
 import org.rainbow.cache.lock.RedisDistributeLook;
+import org.rainbow.cache.properties.CacheType;
 import org.rainbow.cache.properties.CustomCacheProperties;
 import org.rainbow.cache.redis.RedisOps;
 import org.rainbow.cache.repository.CacheOps;
@@ -39,8 +40,7 @@ import java.util.Optional;
  */
 @ConditionalOnClass({RedisConnectionFactory.class})
 @ConditionalOnProperty(
-        prefix = "rainbow.cache",
-        name = {"type"},
+        name = {"rainbow.cache.type"},
         havingValue = "REDIS",
         matchIfMissing = true
 )
@@ -84,7 +84,7 @@ public class RedisAutoConfigure {
         return new RedisOps(redisTemplate, this.cacheProperties.getCacheNullVal());
     }
 
-    @Bean(name = {"cacheManager"})
+    @Bean
     @Primary
     public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         RedisCacheConfiguration defConfig = this.getDefConf();

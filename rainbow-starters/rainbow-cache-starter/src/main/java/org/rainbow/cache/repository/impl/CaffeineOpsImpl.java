@@ -210,7 +210,7 @@ public class CaffeineOpsImpl implements CacheOps {
     }
 
     @Override
-    public <T> T hGet(CacheHashKey key, Function<CacheKey, T> loader, boolean... cacheNullValue) {
+    public <T> T hGet(CacheHashKey key, Function<CacheHashKey, T> loader, boolean... cacheNullValue) {
         Function<CacheKey, T> ckLoader = (k) -> loader.apply(key);
         return this.get(key.tran(), ckLoader, cacheNullValue);
     }

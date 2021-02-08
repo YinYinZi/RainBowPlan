@@ -23,14 +23,17 @@ import org.springframework.context.annotation.Primary;
  * @date 2021/2/6  10:16
  */
 @ConditionalOnProperty(
-        prefix = "rainbow.cache",
-        name = {"type"},
+        name = {"rainbow.cache.type"},
         havingValue = "CAFFEINE"
 )
 @EnableConfigurationProperties({CustomCacheProperties.class})
 public class CaffeineAutoConfigure {
     private static final Logger log = LoggerFactory.getLogger(CaffeineAutoConfigure.class);
     private final CustomCacheProperties cacheProperties;
+
+    static {
+        System.out.println("CaffeineAutoConfigure: 我被加载了");
+    }
 
     @Bean
     @ConditionalOnMissingBean
