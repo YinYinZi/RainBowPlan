@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.rainbow.log.LogAutoConfiguration
+org.springframework.context.ApplicationContextInitializer=\
+  org.rainbow.log.RainbowMdcAdapterInitializer

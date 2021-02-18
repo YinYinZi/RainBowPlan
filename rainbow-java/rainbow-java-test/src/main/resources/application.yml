@@ -10,9 +10,17 @@ rainbow:
       worker-id: 0
       data-center-id: 0
     is-seata: false
+  log:
+    enable: true
+    type: LOGGER
+  dingtalk:
+    url: https://oapi.dingtalk.com/robot/send?access_token=156f8652bb0d137418ecd1d7e9ab02078c676a257eaa456b18c6c09cf06c669b
+    secret: SECb2663b54db5b3e0a428907aeeb6dc1c788fa25e7777369e1380c72f300346ddd
 
 
 spring:
+  profiles:
+    active: dev
   # Redis配置
   redis:
     host: 47.111.248.7

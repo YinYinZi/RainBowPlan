@@ -27,6 +27,17 @@
             <artifactId>rainbow-database</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.rainbow
+            </groupId>
+            <artifactId>rainbow-log-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.rainbow</groupId>
+            <artifactId>rainbow-dingtalk-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>

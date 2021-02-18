@@ -42,6 +42,14 @@ public class BaseContextHandler {
         set(BaseContextConstants.JWT_KEY_USER_ID, userId);
     }
 
+    public static String getName() {
+        return (String)get("name", String.class);
+    }
+
+    public static void setName(String name) {
+        set("name", name);
+    }
+
     public static void set(String key, Object value) {
         Map<String, String> map = getLocalMap();
         map.put(key, Objects.isNull(value) ? StrPool.EMPTY : value.toString());
