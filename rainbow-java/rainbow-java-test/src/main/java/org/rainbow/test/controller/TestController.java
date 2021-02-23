@@ -9,6 +9,7 @@ import org.rainbow.dingtalk.sdk.DingTalkSender;
 import org.rainbow.dingtalk.sdk.message.DingTalkLinkMessage;
 import org.rainbow.dingtalk.sdk.message.DingTalkMessage;
 import org.rainbow.dingtalk.sdk.message.DingTalkTextMessage;
+import org.rainbow.notice.annotation.ExceptionNotice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import java.time.Duration;
 @Slf4j
 @RestController
 @RequestMapping("/test")
+@ExceptionNotice
 public class TestController {
 
     @Resource
@@ -32,6 +34,11 @@ public class TestController {
     @Resource
     private DingTalkSender dingTalkSender;
 
+    /**
+     * test接口
+     *
+     * @return String
+     */
     @SysLog(value = "test接口")
     @GetMapping
     public String test() {
@@ -41,9 +48,11 @@ public class TestController {
         cacheKey.setExpire(Duration.ofHours(1));
         cacheOps.set(cacheKey, "caonima", false);
 
-        DingTalkTextMessage dingTalkTextMessage = new DingTalkTextMessage();
+        int i = 1/0;
+
+        /*DingTalkTextMessage dingTalkTextMessage = new DingTalkTextMessage();
         dingTalkTextMessage.setContent("告警:数据库执行删库操作");
-        dingTalkSender.sendSecretMessage(dingTalkTextMessage);
+        dingTalkSender.sendSecretMessage(dingTalkTextMessage);*/
         return cacheKey.toString();
     }
 }

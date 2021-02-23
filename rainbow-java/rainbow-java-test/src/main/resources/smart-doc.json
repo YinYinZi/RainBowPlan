@@ -1,0 +1,21 @@
+{
+  "serverUrl": "http://localhost:8080",
+  "isStrict": false,
+  "allInOne": true,
+  "outPath": "src/main/resources/static/doc",
+  "coverOld": true,
+  "createDebugPage": true,
+  "style": "xt256",
+  "packageFilters": "org.rainbow.test.controller",
+  "md5EncryptedHtmlName": true,
+  "projectName": "smart-doc",
+  "inlineEnum": true,
+  "skipTransientField": true,
+  "revisionLogs": [{
+    "version": "1.0",
+    "revisionTime": "2021-02-22 14:57",
+    "status": "create",
+    "author": "K",
+    "remarks": "smart-doc测试文档"
+  }]
+}

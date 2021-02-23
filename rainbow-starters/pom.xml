@@ -17,6 +17,7 @@
         <module>rainbow-cache-starter</module>
         <module>rainbow-log-starter</module>
         <module>rainbow-dingtalk-starter</module>
+        <module>rainbow-exception-notice-starter</module>
     </modules>
 
 

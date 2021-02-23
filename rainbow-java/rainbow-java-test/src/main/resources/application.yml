@@ -16,7 +16,11 @@ rainbow:
   dingtalk:
     url: https://oapi.dingtalk.com/robot/send?access_token=156f8652bb0d137418ecd1d7e9ab02078c676a257eaa456b18c6c09cf06c669b
     secret: SECb2663b54db5b3e0a428907aeeb6dc1c788fa25e7777369e1380c72f300346ddd
-
+  exception:
+    notice:
+      enabled: true
+      dingTalk:
+        webHook: https://oapi.dingtalk.com/robot/send?access_token=156f8652bb0d137418ecd1d7e9ab02078c676a257eaa456b18c6c09cf06c669b
 
 spring:
   profiles:
@@ -71,11 +75,8 @@ spring:
         reset-enable: true
         login-username: rainbow
         login-password: rainbow
-
-
-
-
-
+  application:
+    name: 测试项目
 
 # Redis客户端Lettuce配置
 lettuce:
@@ -92,4 +93,3 @@ lettuce:
   maxIdle: 10
   minIdle: 10
   timeout: 10000
-

@@ -13,7 +13,7 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    │ ├─rainbow-cache-starter 缓存模块模块    
    │ ├─rainbow-dingtalk-starter 钉钉告警模块      
    │ ├─rainbow-log-starter 日志启动器    
-   │ └─rainbow-swagger2-starter swagger2启动器  (启动中)  
+   │ └─rainbow-swagger-starter swagger2启动器  (启动中)  
    │      
    │─rainbow-core 主模块  
    │─rainbow-dependencies 通用依赖模块  
