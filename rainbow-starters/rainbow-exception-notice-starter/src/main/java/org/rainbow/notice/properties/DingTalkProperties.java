@@ -3,6 +3,9 @@ package org.rainbow.notice.properties;
 import lombok.Data;
 import org.rainbow.notice.enums.DingTalkMsgTypeEnum;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 钉钉机器人配置属性
  *
