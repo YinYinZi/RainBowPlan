@@ -3,16 +3,8 @@ package org.rainbow.notice.content;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.rainbow.notice.enums.DingTalkMsgTypeEnum;
 import org.rainbow.notice.properties.DingTalkProperties;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 /**
  * 钉钉异常通知消息请求体
