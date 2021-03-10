@@ -19,10 +19,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface ServerEndpoint {
 
-    @AliasFor("path")
+    @AliasFor("value")
     String path() default "/";
 
-    @AliasFor("value")
+    @AliasFor("path")
     String value() default "/";
 
     String host() default "0.0.0.0";
@@ -37,7 +37,7 @@ public @interface ServerEndpoint {
 
     //------------------------- option -------------------------
 
-    String optionConnectionTimeoutMillis() default "30000";
+    String optionConnectTimeoutMillis() default "30000";
 
     String optionSoBacklog() default "128";
 
@@ -77,7 +77,7 @@ public @interface ServerEndpoint {
 
     String useEventExecutorGroup() default "true";
 
-    String eventExecutorGroupThread() default "16";
+    String eventExecutorGroupThreads() default "16";
 
     //------------------------- ssl (refer to spring Ssl) -------------------------
 

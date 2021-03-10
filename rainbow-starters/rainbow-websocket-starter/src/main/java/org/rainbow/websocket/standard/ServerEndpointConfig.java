@@ -22,44 +22,44 @@ public class ServerEndpointConfig {
     /**
      * websocket host
      */
-    private final String HOST;
+    private final String host;
 
     /**
      * websocket port
      */
-    private final int PORT;
+    private final int port;
 
     /**
      * bossEventLoopGroup的线程数
      */
-    private final int BOSS_LOOP_GROUP_THREADS;
+    private final int bossLoopGroupThreads;
 
     /**
      * workerEventLoopGroup的线程数
      */
-    private final int WORKER_LOOP_GROUP_THREADS;
+    private final int workerLoopGroupThreads;
 
     /**
      * 是否添加WebSocketServerCompressionHandler到pipeline
      */
-    private final boolean USE_COMPRESSION_HANDLER;
+    private final boolean useCompressionHandler;
 
     /**
      * 连接超时毫秒数
      */
-    private final int CONNECT_TIMEOUT_MILLIS;
+    private final int connectTimeoutMillis;
 
     /**
      * 可连接队列的大小
      */
-    private final int SO_BACKLOG;
+    private final int soBackLog;
 
     /**
      * 一个Loop写操作执行的最大次数，默认值为16,也就是说，对于大数据量的写操作至多进行16次，
      * 如果16次仍没有全部写完数据，此时会提交一个新的写任务给EventLoop，
      * 任务将在下次调度继续执行,其他的写请求不会因为单个大数据量写请求而耽误
      */
-    private final int WRITE_SPIN_COUNT;
+    private final int writeSpinCount;
 
     /**
      * AbstractChannelHandlerContext.write()时会将消息方法ChannelOutBoundBuffer中,
@@ -67,87 +67,87 @@ public class ServerEndpointConfig {
      * 为了避免缓冲区增长过快, 当缓冲区数据大小超过High_Water_Mark时会把Channel标记为不可写
      * 在flush过程中如果writeBufferSize降低到Low_Water_Mark时, 会重新将Channel标记为可写
      */
-    private final int WRITE_BUFFER_HIGH_WATER_MARK;
-    private final int WRITE_BUFFER_LOW_WATER_MARK;
+    private final int writeBufferHighWaterMark;
+    private final int writeBufferLowWaterMark;
 
     /**
      * 接受缓冲区的大小
      */
-    private final int SO_RCVBUF;
+    private final int soRcvBuf;
 
     /**
      * 发送缓冲区的大小
      */
-    private final int SO_SNDBUF;
+    private final int soSndBuf;
 
 
     /**
      * 是否开启Nagle算法
      */
-    private final boolean TCP_NODELAY;
+    private final boolean tcpNoDelay;
 
     /**
      * 心跳检测开关
      */
-    private final boolean SO_KEEPALIVE;
+    private final boolean soKeepAlive;
 
     /**
      * 设置延时关闭的时间
      */
-    private final int SO_LINGER;
+    private final int soLinger;
 
     /**
      * 关闭连接时，允许半关
      */
-    private final boolean ALLOW_HALF_CLOSURE;
+    private final boolean allowHalfClosure;
 
     /**
      * 读超时. 即当在指定的时间间隔内没有从 Channel 读取到数据时, 会触发一个 READER_IDLE 的 IdleStateEvent 事件
      */
-    private final int READER_IDLE_TIME_SECONDS;
+    private final int readerIdleTimeSeconds;
 
     /**
      * 写超时. 即当在指定的时间间隔内没有数据写入到 Channel 时, 会触发一个 WRITER_IDLE 的 IdleStateEvent 事件
      */
-    private final int WRITER_IDLE_TIME_SECONDS;
+    private final int writerIdleTimeSeconds;
 
     /**
      * 读/写超时. 即当在指定的时间间隔内没有读或写操作时, 会触发一个 ALL_IDLE 的 IdleStateEvent 事件
      */
-    private final int ALL_IDLE_TIME_SECONDS;
+    private final int allIdleTimeSeconds;
 
     /**
      * 最大允许帧载荷长度
      */
-    private final int MAX_FRAME_PAYLOAD_LENGTH;
+    private final int maxFramePayloadLength;
 
     /**
      * 是否使用另一个线程池来执行耗时的同步业务逻辑
      */
-    private final boolean USE_EVENT_EXECUTOR_GROUP;
+    private final boolean useEventExecutorGroup;
 
     /**
      * eventExecutorGroup的线程数
      */
-    private final int EVENT_EXECUTOR_GROUP_THREADS;
+    private final int eventExecutorGroupThreads;
 
 
-    private final String KEY_PASSWORD;
+    private final String keyPassword;
 
-    private final String KEY_STORE;
+    private final String keyStore;
 
-    private final String KEY_STORE_PASSWORD;
+    private final String keyStorePassword;
 
-    private final String KEY_STORE_TYPE;
+    private final String keyStoreType;
 
-    private final String TRUST_STORE;
+    private final String trustStore;
 
-    private final String TRUST_STORE_PASSWORD;
+    private final String trustStorePassword;
 
-    private final String TRUST_STORE_TYPE;
+    private final String trustStoreType;
 
-    private final String[] CORS_ORIGINS;
-    private final Boolean CORS_ALLOW_CREDENTIALS;
+    private final String[] corsOrigins;
+    private final Boolean corsAllowCredentials;
 
     private static Integer randomPort;
 
@@ -155,7 +155,7 @@ public class ServerEndpointConfig {
                                 int workerLoopGroupThreads, boolean useCompressionHandler,
                                 int connectTimeoutMillis, int soBacklog, int writeSpinCount,
                                 int writeBufferHighWaterMark, int writeBufferLowWaterMark,
-                                int soRcvbuf, int soSndbuf, boolean tcpNodelay, boolean soKeepalive,
+                                int soRcvBuf, int soSndBuf, boolean tcpNoDelay, boolean soKeepalive,
                                 int soLinger, boolean allowHalfClosure, int readerIdleTimeSeconds,
                                 int writerIdleTimeSeconds, int allIdleTimeSeconds, int maxFramePayloadLength,
                                 boolean useEventExecutorGroup, int eventExecutorGroupThreads, String keyPassword,
@@ -163,42 +163,42 @@ public class ServerEndpointConfig {
                                 String trustStorePassword, String trustStoreType, String[] corsOrigins,
                                 Boolean corsAllowCredentials) {
         if (StringUtils.isEmpty(host) || "0.0.0.0".equals(host) || "0.0.0.0/0.0.0.0".equals(host)) {
-            this.HOST = "0.0.0.0";
+            this.host = "0.0.0.0";
         } else {
-            this.HOST = host;
+            this.host = host;
         }
-        this.PORT = getAvailablePort(port);
-        this.BOSS_LOOP_GROUP_THREADS = bossLoopGroupThreads;
-        this.WORKER_LOOP_GROUP_THREADS = workerLoopGroupThreads;
-        this.USE_COMPRESSION_HANDLER = useCompressionHandler;
-        this.CONNECT_TIMEOUT_MILLIS = connectTimeoutMillis;
-        this.SO_BACKLOG = soBacklog;
-        this.WRITE_SPIN_COUNT = writeSpinCount;
-        this.WRITE_BUFFER_HIGH_WATER_MARK = writeBufferHighWaterMark;
-        this.WRITE_BUFFER_LOW_WATER_MARK = writeBufferLowWaterMark;
-        this.SO_RCVBUF = soRcvbuf;
-        this.SO_SNDBUF = soSndbuf;
-        this.TCP_NODELAY = tcpNodelay;
-        this.SO_KEEPALIVE = soKeepalive;
-        this.SO_LINGER = soLinger;
-        this.ALLOW_HALF_CLOSURE = allowHalfClosure;
-        this.READER_IDLE_TIME_SECONDS = readerIdleTimeSeconds;
-        this.WRITER_IDLE_TIME_SECONDS = writerIdleTimeSeconds;
-        this.ALL_IDLE_TIME_SECONDS = allIdleTimeSeconds;
-        this.MAX_FRAME_PAYLOAD_LENGTH = maxFramePayloadLength;
-        this.USE_EVENT_EXECUTOR_GROUP = useEventExecutorGroup;
-        this.EVENT_EXECUTOR_GROUP_THREADS = eventExecutorGroupThreads;
+        this.port = getAvailablePort(port);
+        this.bossLoopGroupThreads = bossLoopGroupThreads;
+        this.workerLoopGroupThreads = workerLoopGroupThreads;
+        this.useCompressionHandler = useCompressionHandler;
+        this.connectTimeoutMillis = connectTimeoutMillis;
+        this.soBackLog = soBacklog;
+        this.writeSpinCount = writeSpinCount;
+        this.writeBufferHighWaterMark = writeBufferHighWaterMark;
+        this.writeBufferLowWaterMark = writeBufferLowWaterMark;
+        this.soRcvBuf = soRcvBuf;
+        this.soSndBuf = soSndBuf;
+        this.tcpNoDelay = tcpNoDelay;
+        this.soKeepAlive = soKeepalive;
+        this.soLinger = soLinger;
+        this.allowHalfClosure = allowHalfClosure;
+        this.readerIdleTimeSeconds = readerIdleTimeSeconds;
+        this.writerIdleTimeSeconds = writerIdleTimeSeconds;
+        this.allIdleTimeSeconds = allIdleTimeSeconds;
+        this.maxFramePayloadLength = maxFramePayloadLength;
+        this.useEventExecutorGroup = useEventExecutorGroup;
+        this.eventExecutorGroupThreads = eventExecutorGroupThreads;
 
-        this.KEY_PASSWORD = keyPassword;
-        this.KEY_STORE = keyStore;
-        this.KEY_STORE_PASSWORD = keyStorePassword;
-        this.KEY_STORE_TYPE = keyStoreType;
-        this.TRUST_STORE = trustStore;
-        this.TRUST_STORE_PASSWORD = trustStorePassword;
-        this.TRUST_STORE_TYPE = trustStoreType;
+        this.keyPassword = keyPassword;
+        this.keyStore = keyStore;
+        this.keyStorePassword = keyStorePassword;
+        this.keyStoreType = keyStoreType;
+        this.trustStore = trustStore;
+        this.trustStorePassword = trustStorePassword;
+        this.trustStoreType = trustStoreType;
 
-        this.CORS_ORIGINS = corsOrigins;
-        this.CORS_ALLOW_CREDENTIALS = corsAllowCredentials;
+        this.corsOrigins = corsOrigins;
+        this.corsAllowCredentials = corsAllowCredentials;
     }
 
     private int getAvailablePort(int port) {
@@ -224,4 +224,5 @@ public class ServerEndpointConfig {
         randomPort = localPort;
         return localPort;
     }
+
 }

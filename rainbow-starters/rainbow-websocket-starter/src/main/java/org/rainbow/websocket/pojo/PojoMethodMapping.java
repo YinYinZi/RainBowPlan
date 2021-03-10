@@ -301,6 +301,10 @@ public class PojoMethodMapping {
         return implement;
     }
 
+    Method getBeforeHandshake() {
+        return beforeHandshake;
+    }
+
 
     Object[] getBeforeHandshakeArgs(Channel channel, FullHttpRequest req) throws Exception {
         return getMethodArgumentValues(channel, req, beforeHandshakeParameters, beforeHandshakeArgResolvers);

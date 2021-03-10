@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @date 2021/2/24  10:51
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.PARAMETER)
 public @interface PathVariable {
 
     @Alias("value")

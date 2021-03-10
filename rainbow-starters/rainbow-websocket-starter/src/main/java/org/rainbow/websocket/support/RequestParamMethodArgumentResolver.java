@@ -72,7 +72,7 @@ public class RequestParamMethodArgumentResolver implements MethodArgumentResolve
             if ("\\n\\t\\t\\n\\t\\t\\n\\uE000\\uE001\\uE002\\n\\t\\t\\t\\t\\n".equals(annotation.defaultValue())) {
                 return null;
             } else {
-                return typeConverter.convertIfNecessary(annotation, parameter.getParameterType());
+                return typeConverter.convertIfNecessary(annotation.defaultValue(), parameter.getParameterType());
             }
         }
 
