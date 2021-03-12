@@ -87,6 +87,9 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         this.isCors = isCors;
     }
 
+    /**
+     * 当收到FullHttpRequest消息时调用
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest msg) throws Exception {
         try {
@@ -105,14 +108,19 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
             sendHttpResponse(ctx, msg, res);
             e.printStackTrace();
         }
-        handlerHttpRequest(ctx, msg);
     }
 
+    /**
+     * 异常发生时调用
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         pojoEndpointServer.doError(ctx.channel(), cause);
     }
 
+    /**
+     *  通道关闭时调用
+     */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         pojoEndpointServer.doOnClose(ctx.channel());
@@ -129,10 +137,23 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
                 res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, BAD_REQUEST);
             }
             sendHttpResponse(ctx, req, res);
+            return;
         }
 
         // 只允许get请求
         if (req.method() != HttpMethod.GET) {
+            if (forbiddenByteBuf != null) {
+                res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, FORBIDDEN, forbiddenByteBuf.retainedDuplicate());
+            } else {
+                res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, FORBIDDEN);
+            }
+            sendHttpResponse(ctx, req, res);
+            return;
+        }
+
+        HttpHeaders headers = req.headers();
+        String host = headers.get(HOST);
+        if (StringUtils.isEmpty(host)) {
             if (forbiddenByteBuf != null) {
                 res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, FORBIDDEN, forbiddenByteBuf.retainedDuplicate());
             } else {
@@ -184,6 +205,7 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
                 res = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, NOT_FOUND);
             }
             sendHttpResponse(ctx, req, res);
+            return;
         }
 
         if (!req.headers().contains(UPGRADE)
@@ -219,6 +241,7 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
         if (handshaker == null) {
             WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(channel);
         } else {
+            // ChannelPipeline类是ChannelHandler实例对象的链表，用于处理或截获通道的接收和发送数据
             ChannelPipeline pipeline = ctx.pipeline();
             pipeline.remove(ctx.name());
             if (config.getReaderIdleTimeSeconds() != 0 || config.getWriterIdleTimeSeconds() != 0 || config.getAllIdleTimeSeconds() != 0) {
@@ -229,7 +252,7 @@ class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
             }
             pipeline.addLast(new WebSocketFrameAggregator(Integer.MAX_VALUE));
             if (config.isUseEventExecutorGroup()) {
-                pipeline.addLast(eventExecutorGroup);
+                pipeline.addLast(eventExecutorGroup, new WebSocketServerHandler(pojoEndpointServer));
             } else {
                 pipeline.addLast(new WebSocketServerHandler(pojoEndpointServer));
             }

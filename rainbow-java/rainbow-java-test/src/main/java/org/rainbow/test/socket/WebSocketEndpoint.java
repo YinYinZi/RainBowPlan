@@ -13,7 +13,7 @@ import java.util.Map;
  * @author K
  * @date 2021/3/8  16:52
  */
-@ServerEndpoint(path = "/ws/{arg}")
+@ServerEndpoint(path = "/ws/{arg}", port = "8898")
 public class WebSocketEndpoint {
 
     @BeforeHandshake

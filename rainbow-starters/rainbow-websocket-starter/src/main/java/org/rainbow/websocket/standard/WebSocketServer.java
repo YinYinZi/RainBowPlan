@@ -55,6 +55,7 @@ public class WebSocketServer {
      */
     public void init() throws InterruptedException, SSLException {
         EventExecutorGroup eventExecutorGroup = null;
+        // 判断是否是用来ssl加密
         final SslContext sslCtx;
         if (StrUtil.isNotBlank(this.config.getKeyStore())) {
             sslCtx = SslUtils.createSslContext(config.getKeyPassword(), config.getKeyStore(),
@@ -83,6 +84,7 @@ public class WebSocketServer {
                 .childOption(ChannelOption.WRITE_BUFFER_WATER_MARK,
                         new WriteBufferWaterMark(config.getWriteBufferLowWaterMark(), config.getWriteBufferHighWaterMark()))
                 .childOption(ChannelOption.TCP_NODELAY, config.isTcpNoDelay())
+                .childOption(ChannelOption.SO_KEEPALIVE, config.isSoKeepAlive())
                 .childOption(ChannelOption.SO_LINGER, config.getSoLinger())
                 .childOption(ChannelOption.ALLOW_HALF_CLOSURE, config.isAllowHalfClosure())
                 .handler(new LoggingHandler(LogLevel.DEBUG))
@@ -114,7 +116,7 @@ public class WebSocketServer {
             channelFuture = bootstrap.bind(config.getPort());
         } else {
             try {
-                bootstrap.bind(new InetSocketAddress(InetAddress.getByName(config.getHost()), config.getPort()));
+                channelFuture = bootstrap.bind(new InetSocketAddress(InetAddress.getByName(config.getHost()), config.getPort()));
             } catch (UnknownHostException e) {
                 channelFuture = bootstrap.bind(config.getHost(), config.getPort());
                 e.printStackTrace();
