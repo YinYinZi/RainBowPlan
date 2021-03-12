@@ -150,6 +150,7 @@ public PojoMethodMapping(Class<?> clazz, ApplicationContext ctx, AbstractBeanFac
     // 逐个获取每个方法的方法参数的参数解析器
     getResolvers(parameters);
 }
+```
 
 然后查找方法的方法参数
 ```
@@ -168,6 +169,7 @@ private static MethodParameter[] getParameters(Method m) {
     }
     return result;
 }
+```
 
 然后查找每个方法的每个参数的参数解析器
 ```
