@@ -1,4 +1,4 @@
-#  🌈 RainBowPlan 彩虹计划
+#  🌈 RainBowPlan 彩虹计划 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
 
 ### 🌱 项目目录
@@ -23,4 +23,4 @@ Java生态研究(Spring Boot + Redis + Dubbo + RocketMQ + Elasticsearch)
    
 ### 🎯 近期计划
  
-rainbow-log-starter、rainbow-mq-starter模块
+思考中。。。
