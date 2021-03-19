@@ -21,6 +21,16 @@ rainbow:
       enabled: true
       dingTalk:
         webHook: https://oapi.dingtalk.com/robot/send?access_token=156f8652bb0d137418ecd1d7e9ab02078c676a257eaa456b18c6c09cf06c669b
+  data:
+    elasticsearch:
+      cluster-name: docker-cluster
+      cluster-nodes: 192.168.88.100:9200
+      index:
+        number-of-replicas: 0
+        number-of-shards: 3
+      account:
+        username: elastic
+        password: qwopalsk123
 
 spring:
   profiles:
