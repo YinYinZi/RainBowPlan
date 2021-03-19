@@ -19,6 +19,7 @@
         <module>rainbow-dingtalk-starter</module>
         <module>rainbow-exception-notice-starter</module>
         <module>rainbow-websocket-starter</module>
+        <module>rainbow-elasticsearch</module>
     </modules>
 
 
