@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.ElasticsearchException;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.MultiSearchRequest;
@@ -17,6 +18,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -54,6 +56,22 @@ public abstract class BaseElasticsearchService<V> {
         RequestOptions.Builder builder = RequestOptions.DEFAULT.toBuilder();
         builder.setHttpAsyncResponseConsumerFactory(new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(30 * 1024 * 1024));
         COMMON_OPTIONS = builder.build();
+    }
+
+    /**
+     * 判断索引是否存在
+     *
+     * @param index 索引
+     */
+    protected boolean indexExists(String index) {
+        boolean exists = false;
+        GetIndexRequest getIndexRequest = new GetIndexRequest(index);
+        try {
+            exists = client.indices().exists(getIndexRequest, COMMON_OPTIONS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return exists;
     }
 
     /**
