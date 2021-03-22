@@ -13,6 +13,13 @@
     <description>rainbow elasticsearch 启动器</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.rainbow</groupId>
+            <artifactId>rainbow-elasticsearch-annotation</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- validator -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
@@ -30,7 +37,6 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>7.3.0</version>
         </dependency>
 
         <!-- elasticsearch-rest-client -->
@@ -44,7 +50,6 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.3.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.elasticsearch.client</groupId>
@@ -55,10 +60,6 @@
                     <artifactId>elasticsearch</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
         </dependency>
 
     </dependencies>
