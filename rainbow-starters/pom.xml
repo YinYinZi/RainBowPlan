@@ -21,6 +21,7 @@
         <module>rainbow-websocket-starter</module>
         <module>rainbow-elasticsearch</module>
         <module>rainbow-elasticsearch-annotation</module>
+        <module>rainbow-xss-starter</module>
     </modules>
 
 
