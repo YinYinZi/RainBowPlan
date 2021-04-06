@@ -1,6 +1,7 @@
 package org.rainbow.elasticsearch.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -9,7 +10,9 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +26,14 @@ import java.util.List;
  * @author K
  * @date 2021/3/17  11:07
  */
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(ElasticsearchProperties.class)
+@ConditionalOnProperty(
+        name = {"rainbow.data.elasticsearch.enabled"},
+        havingValue = "true"
+)
 public class ElasticsearchAutoConfiguration {
 
     private final ElasticsearchProperties elasticsearchProperties;
@@ -35,6 +43,7 @@ public class ElasticsearchAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public RestHighLevelClient restHighLevelClient() {
+        log.info("es Initializing....");
         List<String> clusterNodes = elasticsearchProperties.getClusterNodes();
         clusterNodes.forEach(node -> {
             try {
